@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<title>Formulário de inscrição Evento</title>
+	
+	<link href="estilos.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+    // validador CPF
+function verificarCPF(c){
+
+    var i;
+    s = c;
+    var c = s.substr(0,9);
+    var dv = s.substr(9,2);
+    var d1 = 0;
+    var v = false;
+ 
+    for (i = 0; i < 9; i++){
+        d1 += c.charAt(i)*(10-i);
+    }
+    if (d1 == 0){
+        document.getElementById("aviso_cpf").innerHTML = "CPF Inválido";
+        //document.form.action = "#";
+        document.getElementById("bot_envio").style.display = "none";
+        //alert("CPF Inválido")
+        v = true;
+        return false;
+    }
+    d1 = 11 - (d1 % 11);
+    if (d1 > 9) d1 = 0;
+    if (dv.charAt(0) != d1){
+        document.getElementById("aviso_cpf").innerHTML = "CPF Inválido";
+        //document.form.action = "#";
+        document.getElementById("bot_envio").style.display = "none";
+        //alert("CPF Inválido")
+        v = true;
+        return false;
+    }
+ 
+    d1 *= 2;
+    for (i = 0; i < 9; i++){
+        d1 += c.charAt(i)*(11-i);
+    }
+    d1 = 11 - (d1 % 11);
+    if (d1 > 9) d1 = 0;
+    if (dv.charAt(1) != d1){
+        document.getElementById("aviso_cpf").innerHTML = "CPF Inválido";
+        document.getElementById("bot_envio").style.display = "none";
+        //document.form.action = "#";
+        //alert("CPF Inválido")
+        v = true;
+        return false;
+    }
+    if (!v) {
+        document.getElementById("aviso_cpf").innerHTML = " </br>";
+        document.getElementById("bot_envio").style.display = "block";
+        //alert(c + "nCPF Válido")
+    }
+}
+
+    // validador CPF Acompanhante
+function verificarCPF_2(c){
+
+    var i;
+    s = c;
+    var c = s.substr(0,9);
+    var dv = s.substr(9,2);
+    var d1 = 0;
+    var v = false;
+ 
+    for (i = 0; i < 9; i++){
+        d1 += c.charAt(i)*(10-i);
+    }
+    if (d1 == 0){
+        document.getElementById("aviso_doc_familiar").innerHTML = "CPF Inválido";
+        //document.getElementById("bot_envio").style.display = "none";
+        //alert("CPF Inválido")
+        v = true;
+        return false;
+    }
+    d1 = 11 - (d1 % 11);
+    if (d1 > 9) d1 = 0;
+    if (dv.charAt(0) != d1){
+        document.getElementById("aviso_doc_familiar").innerHTML = "CPF Inválido";
+        //document.getElementById("bot_envio").style.display = "none";
+        //alert("CPF Inválido")
+        v = true;
+        return false;
+    }
+ 
+    d1 *= 2;
+    for (i = 0; i < 9; i++){
+        d1 += c.charAt(i)*(11-i);
+    }
+    d1 = 11 - (d1 % 11);
+    if (d1 > 9) d1 = 0;
+    if (dv.charAt(1) != d1){
+        document.getElementById("aviso_doc_familiar").innerHTML = "CPF Inválido";
+        //document.getElementById("bot_envio").style.display = "none";
+        //alert("CPF Inválido")
+        v = true;
+        return false;
+    }
+    if (!v) {
+        document.getElementById("aviso_doc_familiar").innerHTML = " </br>";
+        //document.getElementById("bot_envio").style.display = "block";
+        //alert(c + "nCPF Válido")
+    }
+}
+
+/*FUNÇÃO MÁSCARA TELEFONE*/
+    function mascara( campo ) {
+        campo.value = campo.value.replace( /[^\d]/g, '' )
+                                 .replace( /^(\d\d)(\d)/, '($1) $2' )
+                                 .replace( /(\d{5})(\d)/, '$1-$2' );
+        if ( campo.value.length > 15 ) campo.value = stop;
+        else stop = campo.value;    
+    }
+
+    function mascaraFixo( campo ) {
+        campo.value = campo.value.replace( /[^\d]/g, '' )
+                                 .replace( /^(\d\d)(\d)/, '($1) $2' )
+                                 .replace( /(\d{4})(\d)/, '$1-$2' );
+        if ( campo.value.length > 15 ) campo.value = stop;
+        else stop = campo.value;  
+    }
+
+
+    /*FUNÇÃO MÁSCARA DATA DE NASCIMENTO*/
+function mascaraData(campoData){
+              var datanascimento = campoData.value;
+              if (datanascimento.length == 2){
+                  datanascimento = datanascimento + '/';
+                  document.forms[0].datanascimento.value = datanascimento;
+      return true;              
+              }
+              if (datanascimento.length == 5){
+                  datanascimento = datanascimento + '/';
+                  document.forms[0].datanascimento.value = datanascimento;
+                  return true;
+              }
+         }
+
+/*FUNÇÃO MÁSCARA DATA DE NASCIMENTO ACOMPANHANTE*/
+function mascaraData_2(campoData){
+              var datanasc_familiar = campoData.value;
+              if (datanasc_familiar.length == 2){
+                  datanasc_familiar = datanasc_familiar + '/';
+                  document.forms[0].datanasc_familiar.value = datanasc_familiar;
+      return true;              
+              }
+              if (datanasc_familiar.length == 5){
+                  datanasc_familiar = datanasc_familiar + '/';
+                  document.forms[0].datanasc_familiar.value = datanasc_familiar;
+                  return true;
+              }
+         }
+
+    /*VALIDAÇÃO CNPJ*/
+   function ValidarCNPJ(ObjCnpj){
+        var cnpj = ObjCnpj.value;
+        var valida = new Array(6,5,4,3,2,9,8,7,6,5,4,3,2);
+        var dig1= new Number;
+        var dig2= new Number;
+
+        exp = /\.|\-|\//g
+        cnpj = cnpj.toString().replace( exp, "" ); 
+        var digito = new Number(eval(cnpj.charAt(12)+cnpj.charAt(13)));
+
+        for(i = 0; i<valida.length; i++){
+                dig1 += (i>0? (cnpj.charAt(i-1)*valida[i]):0);  
+                dig2 += cnpj.charAt(i)*valida[i];       
+        }
+        dig1 = (((dig1%11)<2)? 0:(11-(dig1%11)));
+        dig2 = (((dig2%11)<2)? 0:(11-(dig2%11)));
+
+        if(((dig1*10)+dig2) != digito)  
+                alert('CNPJ Invalido!');
+
+}
+
+
+/*MÁSCARA CNPJ*/
+
+function MascaraCNPJ(cnpj){
+        if(mascaraInteiro(cnpj)==false){
+                event.returnValue = false;
+        }       
+        return formataCampo(cnpj, '00.000.000/0000-00', event);
+}
+
+
+//valida numero inteiro com mascara
+function mascaraInteiro(){
+        if (event.keyCode < 48 || event.keyCode > 57){
+                event.returnValue = false;
+                return false;
+        }
+        return true;
+}
+
+
+//formata de forma generica os campos
+function formataCampo(campo, Mascara, evento) { 
+        var boleanoMascara; 
+
+        var Digitato = evento.keyCode;
+        exp = /\-|\.|\/|\(|\)| /g
+        campoSoNumeros = campo.value.toString().replace( exp, "" ); 
+
+        var posicaoCampo = 0;    
+        var NovoValorCampo="";
+        var TamanhoMascara = campoSoNumeros.length;; 
+
+        if (Digitato != 8) { // backspace 
+                for(i=0; i<= TamanhoMascara; i++) { 
+                        boleanoMascara  = ((Mascara.charAt(i) == "-") || (Mascara.charAt(i) == ".")
+                                                                || (Mascara.charAt(i) == "/")) 
+                        boleanoMascara  = boleanoMascara || ((Mascara.charAt(i) == "(") 
+                                                                || (Mascara.charAt(i) == ")") || (Mascara.charAt(i) == " ")) 
+                        if (boleanoMascara) { 
+                                NovoValorCampo += Mascara.charAt(i); 
+                                  TamanhoMascara++;
+                        }else { 
+                                NovoValorCampo += campoSoNumeros.charAt(posicaoCampo); 
+                                posicaoCampo++; 
+                          }              
+                  }      
+                campo.value = NovoValorCampo;
+                  return true; 
+        }else { 
+                return true; 
+        }
+}
+
+ function verificaCelular( campo ) {
+    var telefone = campo.value;
+
+    telefone=telefone.replace(/\D/g,"");               //Remove tudo o que não é dígito
+ 
+    var regex = new RegExp('^((1[1-9])|([2-9][0-9]))((3[0-9]{3}[0-9]{4})|(9[0-9]{3}[0-9]{5}))$');
+
+
+if (regex.test(telefone)) { 
+    var btn=document.getElementById('bot_envio');
+    btn.setAttribute('type', 'submit');
+
+
+}
+else { alert("Número de Celular Inválido");
+
+    var btn=document.getElementById('bot_envio');
+    btn.setAttribute('type', 'text');
+
+      }
+    }
+
+function mascaraCep(t, mask){
+ var i = t.value.length;
+ var saida = mask.substring(1,0);
+ var texto = mask.substring(i)
+ if (texto.substring(0,1) != saida){
+ t.value += texto.substring(0,1);
+ }
+ }
+
+function validaData() {
+var strData = document.getElementById('datanascimento').value;
+var partesData = strData.split("/");
+var data = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+
+var strData_limite = "30/03/1998";
+var partesData_limite = strData_limite.split("/");
+var data_limite = new Date(partesData_limite[2], partesData_limite[1] - 1, partesData_limite[0]);
+
+
+if(data <= data_limite) {
+   
+
+  var btn=document.getElementById('bot_envio');
+    btn.setAttribute('type', 'submit');
+
+}
+
+else {
+    alert("Data de nascimento não permitida.");
+    var btn=document.getElementById('bot_envio');
+    btn.setAttribute('type', 'text');
+  }
+
+}
+
+  </script>
+
+<form action="#" method="post" name="form">
+	<div id="borda">
+        
+
+		<table width="760px" border="0" cellspacing="0" cellpadding="0" class="tabela">
+
+			<tr><td><img src="logo_cabecalho.png" style="margin-top: -20px; margin-bottom: 20px; width: 100px; height: 100px; margin-left: 300px; "></td></tr>
+            
+            <tr><td class="pergunta"><strong>NOME DO EVENTO</strong><br>
+            <strong>Local: </strong>Fazenda Club, São Paulo - SP<br><strong>Data:</strong> 23 de fevereiro<br><br><strong>Formulário:</strong> Solicitação de Inscrição<br><br></td></tr>
+
+            <tr><td>Vagas limitadas! Inscrições sujeitas à ordem de recebimento das solicitações.</td></tr>
+
+			<tr><td class="pergunta"><strong><br><br>Seus Dados Pessoais</strong></br></br></td></tr>
+
+			<tr><td><p>
+    <label for="nome" class="top_ajuste pergunta_dados">Nome(s)*:  </label><input type="text" id="nome" name="nome" value="" required maxlength="100" style="width: 500px; height: 18px"  /></p>
+
+    <label for="sobrenome" class="top_ajuste pergunta_dados">Sobrenome(s)*:  </label><input type="text" id="sobrenome" name="sobrenome" value="" required maxlength="80" style="width: 500px; height: 18px"  /></p>
+
+    <label for="sexo" class="top_ajuste pergunta_dados">Sexo*: </label><select id="sexo" name="sexo" required style="height: 23px; width: 173px;">
+        <option value="Masculino">Masculino</option>
+        <option value="Feminino">Feminino</option>
+    </select>
+
+    <br><br>
+    
+    <label for="datanascimento" class="top_ajuste pergunta_dados">Data de Nascimento*: </label><input name="datanascimento" onkeyup="mascaraData(this)" onblur="validaData()" required="" id="datanascimento" type="text" maxlength="10" style="height: 18px;" />
+
+    <br><br>
+
+    <label for="nacionalidade" class="top_ajuste pergunta_dados">Nacionalidade*: </label><input name="nacionalidade" id="nacionalidade" type="text" maxlength="30" style="width: 300px; height: 18px;" />
+
+    <br><br>
+
+    <label for=" " class="top_ajuste pergunta_dados">CPF*: <span style="font-size: 0.9em">(Somente números):</span>  </label><input type="text" id="doc" name="doc" value="" required maxlength="11" style="width: 300px; height: 18px" onblur="return verificarCPF(this.value)"/></p>
+    <p id="aviso_cpf" style="color: red; font-weight: bold"><?php echo $cpf_duplicado; ?></p>
+
+    <label for="rg" class="top_ajuste pergunta_dados">RG*: </label><input type="text" name="rg" id="rg" value="" required="" style="width: 300px; height: 18px;">
+
+    <br><br>
+
+    <label for="ocupacao" class="top_ajuste pergunta_dados">Ocupação*: </label><select id="ocupacao" name="ocupacao" required style="height: 23px; width: 173px;">
+        <option value="Empresário(a)">Empresário(a)</option>
+        <option value="Presidente / Diretor(a)">Presidente / Diretor(a)</option>
+        <option value="Executivo(a) / Gerente">Executivo(a) / Gerente</option>
+        <option value="Empregado(a)">Empregado(a)</option>
+        <option value="Estudante">Estudante</option>
+        <option value="Profissional liberal / Autônomo(a)">Profissional liberal / Autônomo(a)</option>
+        <option value="Outros">Outros</option>
+    </select>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <label for="email" class="top_ajuste pergunta_dados">E-mail*:  </label><input type="text" id="email" name="email" value="" required maxlength="80" style="width: 350px; height: 18px"  />
+
+    <br>
+    <br>
+
+    <label for="telefone" class="top_ajuste pergunta_dados">Telefone:  </label><input type="text" id="telefone" name="telefone" value="" onkeydown="mascaraFixo( this )" onkeyup="mascaraFixo( this )" maxlength="14" style="width: 140px; height: 18px"  />
+
+     <br>
+     <br>
+
+     <label for="celular" class="top_ajuste pergunta_dados">Celular*:  </label><input type="text" id="celular" name="celular" value="" required maxlength="15" style="width: 140px; height: 18px" onkeydown="mascara( this )" onkeyup="mascara( this )" onblur="verificaCelular( this )"  /></p>
+
+     <br>
+     <br>
+
+     <label for="endereco" class="top_ajuste pergunta_dados">Endereço*:  </label><input type="text" id="endereco" name="endereco" value="" required maxlength="180" style="width: 500px; height: 18px"  />
+
+     <br>
+     <br>
+
+     <label for="complemento" class="top_ajuste pergunta_dados">Complemento:  </label><input type="text" id="complemento" name="complemento" value="" maxlength="180" style="width: 500px; height: 18px"  />
+
+     <br>
+     <br>
+
+     <label for="cidade" class="top_ajuste pergunta_dados">Cidade*:  </label><input type="text" id="cidade" name="cidade" value="" required maxlength="100" style="width: 300px; height: 18px"  />
+
+     <br>
+     <br>
+
+     <label for="estado" class="top_ajuste pergunta_dados">Estado*:  </label><input type="text" id="estado" name="estado" value="" required maxlength="80" style="width: 300px; height: 18px"  />
+
+     <br>
+     <br>
+
+     <label for="cep" class="top_ajuste pergunta_dados">CEP*:  </label><input type="text" id="cep" name="cep" value="" required onkeypress="mascaraCep(this, '#####-###')" maxlength="9" style="width: 300px; height: 18px"  /></p>
+    <p id="aviso_cpf"></br></p>
+
+    <br>
+
+    <label for="tamanho_camiseta" class="top_ajuste pergunta_dados">Tamanho de Camiseta*: </label><select id="tamanho_camiseta" name="tamanho_camiseta" required style="height: 23px; width: 100px;">
+        <option value="P">P</option>
+        <option value="M">M</option>
+        <option value="G">G</option>
+        <option value="GG">GG</option>
+    </select>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <span style="font-size: 0.9em"><strong>Obs.:</strong> Poderão participar do torneio apenas clientes com residência no Brasil.</span><br><br><br>
+
+    </td>
+
+</tr>
+
+
+<tr><td class="pergunta"><strong><br><br>Sobre a sua relação atual com a nossa marca *</strong></br></br></td></tr>
+
+<tr><td>
+<input type="radio" onclick="verificaA();" required="" value="Proprietário" name="checkproprietario" id="proprietario" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Sou atualmente proprietário(a) de um produto</label>
+
+<br>
+<br>
+
+<input type="radio" onclick="verificaB();" required="" value="Familiar" onchange="mostraTabela()" name="checkproprietario" id="familiar" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Sou familiar de proprietário(a) de um produto e residimos no mesmo domicílio</label>
+
+<br>
+<br>
+<br>
+<br>
+
+</td></tr>
+
+</table>
+
+<table width="760px" border="0" cellspacing="0" cellpadding="0" class="tabela" id="tabela_familiar">
+    <tr>
+        <td>
+
+<span style="font-size: 0.9em">Preencha apenas se o veículo for propriedade de seu familiar:</span><br><br><br>
+
+
+<label for="nome_familiar" id="muda_familiar" class="top_ajuste pergunta_dados_2">Nome(s) do(a) proprietário(a)*: </label><input type="text" id="nome_familiar" required="" name="nome_familiar" value="" maxlength="100" style="width: 450px; height: 18px;"  />
+
+<br><br>
+
+<label for="sobrenome_familiar" id="muda_sobrenome" class="top_ajuste pergunta_dados_2">Sobrenome(s)*: </label><input type="text" id="sobrenome_familiar" required="" name="sobrenome_familiar" value="" maxlength="100" style="width: 450px; height: 18px;"  />
+
+<br><br>
+
+<label for="datanasc_familiar" id="muda_data_nascimento" class="top_ajuste pergunta_dados_2">Data de Nascimento*: </label><input name="datanasc_familiar" required="" id="datanasc_familiar" OnKeyUp="mascaraData_2(this);" type="text" maxlength="10" style="height: 18px;" />
+
+<br><br>
+
+    <label for="naci_familiar" id="muda_nacionalidade" class="top_ajuste pergunta_dados_2">Nacionalidade*: </label><input name="naci_familiar" required="" id="naci_familiar" type="text" maxlength="30" style="width: 300px; height: 18px;" />
+
+<br><br>
+
+ <label for="cpf_2" id="muda_cpf" class="top_ajuste pergunta_dados_2">CPF (Somente números)*: </label><input type="text" id="cpf_2" name="cpf_2" value="" required maxlength="11" style="width: 300px; height: 18px" onblur="return verificarCPF_2(this.value)"/>
+    <p id="aviso_doc_familiar" style="color: red; font-weight: bold; margin-left: 230px;"></p>
+
+
+ <label for="parentesco" id="muda_parentesco" class="top_ajuste pergunta_dados_2">O(a) proprietário(a) do produto é meu/minha*: </label><select id="parentesco" name="parentesco" required style="height: 23px; width: 200px;">
+        <option value="Marido/Esposa">Marido/Esposa</option>
+        <option value="Pai/Mãe">Pai/Mãe</option>
+        <option value="Padastro/Madastra">Padastro/Madastra</option>
+        <option value="Filho(a)">Filho(a)</option>
+        <option value="Irmão(ã)">Irmão(ã)</option>
+        <option value="Enteado(a)">Enteado(a)</option>
+        <option value="Neto(a)">Neto(a)</option>
+        <option value="Avô/Avó">Avô/Avó</option>
+    </select>
+<br><br><br>
+
+
+</td></tr>
+
+</table>
+
+<table width="760px" border="0" cellspacing="0" cellpadding="0" class="tabela">
+
+<tr><td class="pergunta"><strong><br><br>Sobre o seu veículo</strong></br></br></td></tr>
+
+<tr><td>
+
+<span style="font-size: 0.9em">(caso possua mais do que um, escolha apenas um deles)</span><br><br><br>
+
+<label for="modelo" class="top_ajuste pergunta_dados_2">Modelo*:  </label><input type="text" id="modelo" name="modelo" value="" required maxlength="80" style="width: 300px; height: 18px"  />
+
+<br>
+<br>
+
+<label for="ano" class="top_ajuste pergunta_dados_2">Ano*:  </label><input type="text" id="ano" name="ano" value="" required maxlength="30" style="width: 300px; height: 18px"  />
+
+
+<br>
+<br>
+
+<label for="chassi" class="top_ajuste pergunta_dados_2">Chassi*:  </label><input type="text" id="chassi" name="chassi" value="" required maxlength="50" style="width: 300px; height: 18px"  />
+
+<br><br>
+
+<label for="pais" class="top_ajuste pergunta_dados_2">País onde está registrado*: </label><select id="pais" onchange="requiredCnpj()" name="pais" required style="height: 23px; width: 450px;">
+        <option value="África do Sul">África do Sul</option>
+<option value="Albânia">Albânia</option>
+<option value="Alemanha">Alemanha</option>
+<option value="Andorra">Andorra</option>
+<option value="Angola">Angola</option>
+<option value="Anguilla">Anguilla</option>
+<option value="Antigua">Antigua</option>
+<option value="Arábia Saudita">Arábia Saudita</option>
+<option value="Argentina">Argentina</option>
+<option value="Armênia">Armênia</option>
+<option value="Aruba">Aruba</option>
+<option value="Austrália">Austrália</option>
+<option value="Áustria">Áustria</option>
+<option value="Azerbaijão">Azerbaijão</option>
+<option value="Bahamas">Bahamas</option>
+<option value="Bahrein">Bahrein</option>
+<option value="Bangladesh">Bangladesh</option>
+<option value="Barbados">Barbados</option>
+<option value="Bélgica">Bélgica</option>
+<option value="Benin">Benin</option>
+<option value="Bermudas">Bermudas</option>
+<option value="Botsuana">Botsuana</option>
+<option value="Brasil" selected>Brasil</option>
+<option value="Brunei">Brunei</option>
+<option value="Bulgária">Bulgária</option>
+<option value="Burkina Fasso">Burkina Fasso</option>
+<option value="botão">botão</option>
+<option value="Cabo Verde">Cabo Verde</option>
+<option value="Camarões">Camarões</option>
+<option value="Camboja">Camboja</option>
+<option value="Canadá">Canadá</option>
+<option value="Cazaquistão">Cazaquistão</option>
+<option value="Chade">Chade</option>
+<option value="Chile">Chile</option>
+<option value="China">China</option>
+<option value="Cidade do Vaticano">Cidade do Vaticano</option>
+<option value="Colômbia">Colômbia</option>
+<option value="Congo">Congo</option>
+<option value="Coréia do Sul">Coréia do Sul</option>
+<option value="Costa do Marfim">Costa do Marfim</option>
+<option value="Costa Rica">Costa Rica</option>
+<option value="Croácia">Croácia</option>
+<option value="Dinamarca">Dinamarca</option>
+<option value="Djibuti">Djibuti</option>
+<option value="Dominica">Dominica</option>
+<option value="EUA">EUA</option>
+<option value="Egito">Egito</option>
+<option value="El Salvador">El Salvador</option>
+<option value="Emirados Árabes">Emirados Árabes</option>
+<option value="Equador">Equador</option>
+<option value="Eritréia">Eritréia</option>
+<option value="Escócia">Escócia</option>
+<option value="Eslováquia">Eslováquia</option>
+<option value="Eslovênia">Eslovênia</option>
+<option value="Espanha">Espanha</option>
+<option value="Estônia">Estônia</option>
+<option value="Etiópia">Etiópia</option>
+<option value="Fiji">Fiji</option>
+<option value="Filipinas">Filipinas</option>
+<option value="Finlândia">Finlândia</option>
+<option value="França">França</option>
+<option value="Gabão">Gabão</option>
+<option value="Gâmbia">Gâmbia</option>
+<option value="Gana">Gana</option>
+<option value="Geórgia">Geórgia</option>
+<option value="Gibraltar">Gibraltar</option>
+<option value="Granada">Granada</option>
+<option value="Grécia">Grécia</option>
+<option value="Guadalupe">Guadalupe</option>
+<option value="Guam">Guam</option>
+<option value="Guatemala">Guatemala</option>
+<option value="Guiana">Guiana</option>
+<option value="Guiana Francesa">Guiana Francesa</option>
+<option value="Guiné-bissau">Guiné-bissau</option>
+<option value="Haiti">Haiti</option>
+<option value="Holanda">Holanda</option>
+<option value="Honduras">Honduras</option>
+<option value="Hong Kong">Hong Kong</option>
+<option value="Hungria">Hungria</option>
+<option value="Iêmen">Iêmen</option>
+<option value="Ilhas Cayman">Ilhas Cayman</option>
+<option value="Ilhas Cook">Ilhas Cook</option>
+<option value="Ilhas Curaçao">Ilhas Curaçao</option>
+<option value="Ilhas Marshall">Ilhas Marshall</option>
+<option value="Ilhas Turks & Caicos">Ilhas Turks & Caicos</option>
+<option value="Ilhas Virgens (brit.)">Ilhas Virgens (brit.)</option>
+<option value="Ilhas Virgens(amer.)">Ilhas Virgens(amer.)</option>
+<option value="Ilhas Wallis e Futuna">Ilhas Wallis e Futuna</option>
+<option value="Índia">Índia</option>
+<option value="Indonésia">Indonésia</option>
+<option value="Inglaterra">Inglaterra</option>
+<option value="Irlanda">Irlanda</option>
+<option value="Islândia">Islândia</option>
+<option value="Israel">Israel</option>
+<option value="Itália">Itália</option>
+<option value="Jamaica">Jamaica</option>
+<option value="Japão">Japão</option>
+<option value="Jordânia">Jordânia</option>
+<option value="Kuwait">Kuwait</option>
+<option value="Latvia">Latvia</option>
+<option value="Líbano">Líbano</option>
+<option value="Liechtenstein">Liechtenstein</option>
+<option value="Lituânia">Lituânia</option>
+<option value="Luxemburgo">Luxemburgo</option>
+<option value="Macau">Macau</option>
+<option value="Macedônia">Macedônia</option>
+<option value="Madagascar">Madagascar</option>
+<option value="Malásia">Malásia</option>
+<option value="Malaui">Malaui</option>
+<option value="Mali">Mali</option>
+<option value="Malta">Malta</option>
+<option value="Marrocos">Marrocos</option>
+<option value="Martinica">Martinica</option>
+<option value="Mauritânia">Mauritânia</option>
+<option value="Mauritius">Mauritius</option>
+<option value="México">México</option>
+<option value="Moldova">Moldova</option>
+<option value="Mônaco">Mônaco</option>
+<option value="Montserrat">Montserrat</option>
+<option value="Nepal">Nepal</option>
+<option value="Nicarágua">Nicarágua</option>
+<option value="Niger">Niger</option>
+<option value="Nigéria">Nigéria</option>
+<option value="Noruega">Noruega</option>
+<option value="Nova Caledônia">Nova Caledônia</option>
+<option value="Nova Zelândia">Nova Zelândia</option>
+<option value="Omã">Omã</option>
+<option value="Palau">Palau</option>
+<option value="Panamá">Panamá</option>
+<option value="Papua-nova Guiné">Papua-nova Guiné</option>
+<option value="Paquistão">Paquistão</option>
+<option value="Peru">Peru</option>
+<option value="Polinésia Francesa">Polinésia Francesa</option>
+<option value="Polônia">Polônia</option>
+<option value="Porto Rico">Porto Rico</option>
+<option value="Portugal">Portugal</option>
+<option value="Qatar">Qatar</option>
+<option value="Quênia">Quênia</option>
+<option value="Rep. Dominicana">Rep. Dominicana</option>
+<option value="Rep. Tcheca">Rep. Tcheca</option>
+<option value="Reunion">Reunion</option>
+<option value="Romênia">Romênia</option>
+<option value="Ruanda">Ruanda</option>
+<option value="Rússia">Rússia</option>
+<option value="Saipan">Saipan</option>
+<option value="Samoa Americana">Samoa Americana</option>
+<option value="Senegal">Senegal</option>
+<option value="Serra Leone">Serra Leone</option>
+<option value="Seychelles">Seychelles</option>
+<option value="Singapura">Singapura</option>
+<option value="Síria">Síria</option>
+<option value="Sri Lanka">Sri Lanka</option>
+<option value="St. Kitts & Nevis">St. Kitts & Nevis</option>
+<option value="St. Lúcia">St. Lúcia</option>
+<option value="St. Vincent">St. Vincent</option>
+<option value="Sudão">Sudão</option>
+<option value="Suécia">Suécia</option>
+<option value="Suiça">Suiça</option>
+<option value="Suriname">Suriname</option>
+<option value="Tailândia">Tailândia</option>
+<option value="Taiwan">Taiwan</option>
+<option value="Tanzânia">Tanzânia</option>
+<option value="Togo">Togo</option>
+<option value="Trinidad & Tobago">Trinidad & Tobago</option>
+<option value="Tunísia">Tunísia</option>
+<option value="Turquia">Turquia</option>
+<option value="Ucrânia">Ucrânia</option>
+<option value="Uganda">Uganda</option>
+<option value="Uruguai">Uruguai</option>
+<option value="Venezuela">Venezuela</option>
+<option value="Vietnã">Vietnã</option>
+<option value="Zaire">Zaire</option>
+<option value="Zâmbia">Zâmbia</option>
+<option value="Zimbábue">Zimbábue</option>
+    </select>
+
+<br><br>
+
+<label for="registro" class="top_ajuste pergunta_dados_2">Registrado em nome de*: </label><select  onchange="requiredPessoaJuridica()" id="registro" name="registro" required style="height: 23px; width: 200px;">
+        <option value="Pessoa Física">Pessoa Física</option>
+        <option value="Pessoa Jurídica">Pessoa Jurídica</option>
+    </select>
+
+<br><br><br>
+
+</td>
+</tr>
+</table>
+
+<table width="760px" border="0" cellspacing="0" cellpadding="0" class="tabela" id="tabela_pessoa_juridica">
+
+<tr>
+    <td>
+
+<span style="font-size: 0.9em">Caso o veículo esteja registrado em nome de Pessoa Jurídica, informar:</span><br><br>
+
+<label for="razao_social" id="conteudo_razao" class="top_ajuste pergunta_dados_2">Razão Social:  </label><input type="text" id="razao_social" name="razao_social" value="" maxlength="150" style="width: 300px; height: 18px"  />
+
+<br><br>
+
+<label for="cnpj" id="conteudo_cnpj" class="top_ajuste pergunta_dados_2">CNPJ:  </label><input type="text" id="cnpj" name="cnpj" value="" onkeypress="MascaraCNPJ(form.cnpj)" onchange="ValidarCNPJ(form.cnpj)" maxlength="18" style="width: 300px; height: 18px"  />
+
+</td></tr>
+
+</table>
+
+<table width="760px" border="0" cellspacing="0" cellpadding="0" class="tabela">
+
+
+<tr><td class="pergunta"><strong><br><br>Hobbies *</strong><br><span style="font-size: 0.8em">(Favor marcar ao menos uma opção)</span></br></br></td></tr>
+
+</table>
+
+<table width="380px" border="0" cellspacing="0" cellpadding="0" class="tabela" align="left">
+<tr style="width: 380px;">
+    <td style="width: 380px;">
+
+        <span id="erro_hobbies" style="color: red; display: none;"><strong>Por favor, selecione pelo menos um dos campos abaixo<br><br></strong></span>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_1" value="Arte" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Arte</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_2" value="Ciclismo/Andar de bicilceta" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Ciclismo/Andar de bicilceta</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_3" value="Caça/Pesca" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Caça/Pesca</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_4" value="Cultura/Teatro/Cinema/Literatura" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Cultura/Teatro/Cinema/Literatura</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_5" value="Esportes em geral" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Esportes em geral</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_6" value="Esqui" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Esqui</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_7" value="Fotografia" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Fotografia</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_8" value="Futebol" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Futebol</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_9" value="Gastronomia" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Gastronomia</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_10" value="Golf" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Golf</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_11" value="Hipismo" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Hipismo</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_12" value="Moda/Beleza/Ginástica/Saúde" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Moda/Beleza/Ginástica/Saúde</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_13" value="Montanhismo" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Montanhismo</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_14" value="Automobilismo/Motociclismo" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Automobilismo/Motociclismo</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_15" value="Música" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Música</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_16" value="Natação" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Natação</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_17" value="Esportes aquáticos/Polo aquático/Surf" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Esportes aquáticos/Polo aquático/Surf</label><br>
+
+        <input type="checkbox" name="hobbies" id="chk_hobbies_18" value="Arborismo/Trilha/Passeios na natureza" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Arborismo/Trilha/Passeios na natureza</label><br>
+    </td>
+
+</tr></table>
+
+<table width="380px" border="0" cellspacing="0" cellpadding="0" class="tabela" align="left">
+<tr style="width: 380px;">
+    <td style="width: 380px; display: block;">
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_19" value="Remo" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Remo</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_20" value="Tecnologia/Informática" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Tecnologia/Informática</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_21" value="Tênis/Squash" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Tênis/Squash</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_22" value="Turismo/Viagens" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Turismo/Viagens</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_23" value="Dança" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Dança</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_24" value="Yoga/Meditação" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Yoga/Meditação</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_25" value="Caminhada/Corrida" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Caminhada/Corrida</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_26" value="Artesanato" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Artesanato</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_27" value="Pintura/Desenho" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Pintura/Desenho</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_28" value="Lutas/Artes marciais" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Lutas/Artes marciais</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_29" value="Jardinagem" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Jardinagem</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_30" value="Decoração" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Decoração</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_31" value="Mergulho" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Mergulho</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_32" value="Esportes aéreos" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Esportes aéreos</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_33" value="Esportes náuticos/Vela" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Esportes náuticos/Vela</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_34" value="Polo" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Polo</label><br>
+
+        <input type="checkbox" name="hobbies[]" id="chk_hobbies_35" value="Outros" style="width: 20px; height: 20px; margin-right: 7px"  /><label for="">Outros</label><br>
+    </td>
+</tr>
+
+</table>
+
+
+<table width="760px" border="0" cellspacing="0" cellpadding="0" class="tabela">
+
+    <tr><td class="pergunta"><strong><br><br>Formulário de inscrição *</strong></br></br></td></tr>
+
+    <tr><td>
+<input type="checkbox" required="" name="declaracao_2" id="declaracao_2" value="Sim" style="width: 15px; height: 15px; margin-right: 7px"  /><label for="" style="font-size: 0.9em">Declaro que todas as informações preenchidas nesta Ficha de Inscrição são verdadeiras e que me comprometo a disponibilizar todo e qualquer documento que possa vir a ser solicitado a mim pela promotora do evento para comprovação destas informações.</label>
+
+<br>
+<br>
+
+<input type="checkbox" required="" name="declaracao_3" id="declaracao_3" value="Sim" style="width: 15px; height: 15px; margin-right: 7px"  /><label for="" style="font-size: 0.9em">Estou ciente de que a aceitação da minha participação no evento está sujeita à veracidade das informações preenchidas neste formulário, aos critérios de participação determinados pela promotora do evento e à disponibilidade de vagas. Caso a minha solicitação de inscrição não seja aceita, a promotora do torneio estará desobrigada de apresentar a mim qualquer justificativa pela recusa.</label>
+
+    </td></tr>
+
+</table>
+
+<table width="760px" border="0" cellspacing="0" cellpadding="0" class="tabela">
+
+    <tr><td class="pergunta"><strong><br><br>Compromisso de Proteção de Dados *</strong></br></br></td></tr>
+    
+    <tr><td><span style="font-size: 0.9em">Nós valorizamos a proteção à sua privacidade; portanto, as suas informações serão mantidas de acordo com as disposições sobre a proteção de dados previstas na legislação brasileira. Adotamos medidas de segurança técnicas, físicas e organizacionais de acordo com as leis aplicáveis com o objetivo de proteger suas informações pessoais contra perda, uso inadequado, acesso não autorizado, revelação, alteração e destruição. As informações mantidas sobre você poderão ser utilizadas para pesquisas e análises ou para contatá-lo(a) sobre ofertas, convites ou informações sobre os nossos produtos, serviços ou eventos. Nós poderemos contatá-lo(a) por correio, telefone, fax, SMS ou e-mail, caso as informações para tanto sejam fornecidas.</span><br><br></td></tr>
+    
+
+    <tr><td><input type="checkbox" name="autorizacao" id="autorizacao" required="" value="Sim" style="width: 15px; height: 15px; margin-right: 7px"  /><label for="" style="font-size: 0.9em">Autorizo a empresa a me contatar para os fins e nas formas descritas acima, bem como a coleta, o uso, o armazenamento, o tratamento ou a transferência das minhas informações pessoais.</label>
+
+    <br><br>
+    
+    <span style="font-size: 0.8em">* Campos de preenchimento obrigatório</span>
+
+    <br><br><br><br>
+
+    <button id="bot_envio" type="submit" style=" width:360px; height:30px; margin-top:20px; margin-bottom: 20px; margin-left: 400px;  color: white; background-color:#646464; font-weight: bold; font-size: 1em; text-align: center; border: none; cursor: pointer;">>&nbsp;&nbsp;&nbsp;&nbsp;CONFIRMAR E ENVIAR SOLICITAÇÃO</button>
+
+    <br><br>
+
+    </td></tr>
+</table>
+
+	</div>
+</form>
+<script type="text/javascript">
+
+    function verificaA() {
+    selecionadoA=document.getElementById("proprietario").checked;
+    if (selecionadoA = true) {
+        document.getElementById("familiar").required = false;
+        document.getElementById("nome_familiar").required = false;
+        document.getElementById("sobrenome_familiar").required = false;
+        document.getElementById("datanasc_familiar").required = false;
+        document.getElementById("naci_familiar").required = false;
+        document.getElementById("cpf_2").required = false;
+        document.getElementById("parentesco").required = false;
+        document.getElementById("muda_familiar").innerHTML = "Nome(s) do(a) proprietário(a):";
+        document.getElementById("muda_sobrenome").innerHTML = "Sobrenome(s):";
+        document.getElementById("muda_data_nascimento").innerHTML = "Data de Nascimento:";
+        document.getElementById("muda_nacionalidade").innerHTML = "Nacionalidade:";
+        document.getElementById("muda_cpf").innerHTML = "CPF (Somente números): ";
+        document.getElementById("muda_parentesco").innerHTML = "O(a) proprietário(a) do veículo é meu/minha:";
+
+     }
+
+     else {
+        document.getElementById("familiar").required = true;
+
+     }
+
+    }
+
+    function verificaB() {
+    selecionadoB=document.getElementById("familiar").checked;
+    if (selecionadoB = true) {
+        document.getElementById("proprietario").required = false;
+        document.getElementById("nome_familiar").required = true;
+        document.getElementById("sobrenome_familiar").required = true;
+        document.getElementById("datanasc_familiar").required = true;
+        document.getElementById("naci_familiar").required = true;
+        document.getElementById("cpf_2").required = true;
+        document.getElementById("parentesco").required = true;
+        document.getElementById("muda_familiar").innerHTML = "Nome(s) do(a) proprietário(a)*:";
+        document.getElementById("muda_sobrenome").innerHTML = "Sobrenome(s)*:";
+        document.getElementById("muda_data_nascimento").innerHTML = "Data de Nascimento*:";
+        document.getElementById("muda_nacionalidade").innerHTML = "Nacionalidade*:";
+        document.getElementById("muda_cpf").innerHTML = "CPF (Somente números)*: ";
+        document.getElementById("muda_parentesco").innerHTML = "O(a) proprietário(a) do veículo é meu/minha*:";
+        
+
+        }
+
+        else {
+            document.getElementById("proprietario").required = true;
+        }
+
+    }
+
+
+function mostraTabela_2() {
+    var x = document.getElementById("registro").value;
+
+   if (x == 'Pessoa Jurídica') {
+    document.getElementById("tabela_pessoa_juridica").style.display = "block";
+    }
+
+    if (x !== 'Pessoa Jurídica') {
+    document.getElementById("tabela_pessoa_juridica").style.display = "none";
+    }
+}
+
+
+
+function requiredPessoaJuridica() {
+    var verificaJuridica = document.getElementById("registro").value;
+
+    if (verificaJuridica != "Pessoa Jurídica") {
+        document.getElementById("conteudo_razao").innerHTML = "Razão Social:  ";
+        document.getElementById("razao_social").required = false;
+        document.getElementById("conteudo_cnpj").innerHTML = "CNPJ: ";
+        document.getElementById("cnpj").required = false;
+    }
+
+    else {
+        document.getElementById("conteudo_razao").innerHTML = "Razão Social*:  ";
+        document.getElementById("razao_social").required = true;
+        document.getElementById("conteudo_cnpj").innerHTML = "CNPJ*: ";
+        document.getElementById("cnpj").required = true;
+    }
+
+}
+
+
+function requiredCnpj() {
+    var verificaPais = document.getElementById("pais").value;
+
+    if (verificaPais != "Brasil") {
+        document.getElementById("conteudo_cnpj").innerHTML = "CNPJ: ";
+        document.getElementById("cnpj").required = false;
+    }
+
+    else {
+        document.getElementById("conteudo_cnpj").innerHTML = "CNPJ*: ";
+        document.getElementById("cnpj").required = true;
+    }
+
+}
+
+
+
+function validaHobbies() {
+    
+    if (checkbox.getElementById("chk_hobbies_1").checked == false || 
+        checkbox.getElementById("chk_hobbies_2").checked == false ||
+        checkbox.getElementById("chk_hobbies_3").checked == false ||
+        checkbox.getElementById("chk_hobbies_4").checked == false ||
+        checkbox.getElementById("chk_hobbies_5").checked == false ||
+        checkbox.getElementById("chk_hobbies_6").checked == false ||
+        checkbox.getElementById("chk_hobbies_7").checked == false ||
+        checkbox.getElementById("chk_hobbies_8").checked == false ||
+        checkbox.getElementById("chk_hobbies_8").checked == false ||
+        checkbox.getElementById("chk_hobbies_9").checked == false ||
+        checkbox.getElementById("chk_hobbies_10").checked == false ||
+        checkbox.getElementById("chk_hobbies_11").checked == false ||
+        checkbox.getElementById("chk_hobbies_12").checked == false ||
+        checkbox.getElementById("chk_hobbies_13").checked == false ||
+        checkbox.getElementById("chk_hobbies_14").checked == false ||
+        checkbox.getElementById("chk_hobbies_15").checked == false ||
+        checkbox.getElementById("chk_hobbies_16").checked == false ||
+        checkbox.getElementById("chk_hobbies_17").checked == false ||
+        checkbox.getElementById("chk_hobbies_18").checked == false ||
+        checkbox.getElementById("chk_hobbies_19").checked == false ||
+        checkbox.getElementById("chk_hobbies_20").checked == false ||
+        checkbox.getElementById("chk_hobbies_21").checked == false ||
+        checkbox.getElementById("chk_hobbies_22").checked == false ||
+        checkbox.getElementById("chk_hobbies_23").checked == false ||
+        checkbox.getElementById("chk_hobbies_24").checked == false ||
+        checkbox.getElementById("chk_hobbies_25").checked == false ||
+        checkbox.getElementById("chk_hobbies_26").checked == false ||
+        checkbox.getElementById("chk_hobbies_27").checked == false ||
+        checkbox.getElementById("chk_hobbies_28").checked == false ||
+        checkbox.getElementById("chk_hobbies_29").checked == false ||
+        checkbox.getElementById("chk_hobbies_30").checked == false ||
+        checkbox.getElementById("chk_hobbies_31").checked == false ||
+        checkbox.getElementById("chk_hobbies_32").checked == false ||
+        checkbox.getElementById("chk_hobbies_33").checked == false ||
+        checkbox.getElementById("chk_hobbies_34").checked == false ||
+        checkbox.getElementById("chk_hobbies_35").checked == false) {
+
+        document.getElementById("erro_hobbies").style.display = "block";
+    }
+
+    else {
+        document.getElementById("erro_hobbies").style.display = "none";
+        document.getElementById("chk_hobbies_1").required = false
+        document.getElementById("chk_hobbies_2").required = false
+        document.getElementById("chk_hobbies_3").required = false
+        document.getElementById("chk_hobbies_4").required = false
+        document.getElementById("chk_hobbies_5").required = false
+        document.getElementById("chk_hobbies_6").required = false
+        document.getElementById("chk_hobbies_7").required = false
+        document.getElementById("chk_hobbies_8").required = false
+        document.getElementById("chk_hobbies_9").required = false
+        document.getElementById("chk_hobbies_10").required = false
+        document.getElementById("chk_hobbies_11").required = false
+        document.getElementById("chk_hobbies_12").required = false
+        document.getElementById("chk_hobbies_13").required = false
+        document.getElementById("chk_hobbies_14").required = false
+        document.getElementById("chk_hobbies_15").required = false
+        document.getElementById("chk_hobbies_16").required = false
+        document.getElementById("chk_hobbies_17").required = false
+        document.getElementById("chk_hobbies_18").required = false
+        document.getElementById("chk_hobbies_19").required = false
+        document.getElementById("chk_hobbies_20").required = false
+        document.getElementById("chk_hobbies_21").required = false
+        document.getElementById("chk_hobbies_22").required = false
+        document.getElementById("chk_hobbies_23").required = false
+        document.getElementById("chk_hobbies_24").required = false
+        document.getElementById("chk_hobbies_25").required = false
+        document.getElementById("chk_hobbies_26").required = false
+        document.getElementById("chk_hobbies_27").required = false
+        document.getElementById("chk_hobbies_28").required = false
+        document.getElementById("chk_hobbies_29").required = false
+        document.getElementById("chk_hobbies_30").required = false
+        document.getElementById("chk_hobbies_31").required = false
+        document.getElementById("chk_hobbies_32").required = false
+        document.getElementById("chk_hobbies_33").required = false
+        document.getElementById("chk_hobbies_34").required = false
+        document.getElementById("chk_hobbies_35").required = false
+    }
+
+
+}
+
+
+</script>
+
+</body>
+</html>
