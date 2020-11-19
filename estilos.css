@@ -1,0 +1,58 @@
+
+#borda {
+width:860px; height:auto; margin: 2px auto; background-color:white;
+background-color: white;
+
+padding:20px 0 20px 0;  
+}
+
+.tabela {margin-left:50px;  font-family:Arial, Helvetica, sans-serif}
+
+.pergunta {font-size: 1.2em; height: 25px; padding-top: 10px;}
+
+.dias {font-size: 1.25em; height: 30px; padding: 10px 0; width: 760px; border: solid 1px gray;
+text-align: center; color: gray; display: block; margin: 15px 0; line-height: 30px; text-decoration: none;}
+
+.dias:hover {color: red}
+
+.coluna_horario {width: 252px; height: auto; display: block; list-style-type: none; padding: 0; margin: 0}
+.bt_horario {width: 200px; height: 30px; line-height: 30px; color: gray; display: block; margin: 5px 0; 
+  text-decoration: none; font-size: 1.30em; border: solid 1px gray; text-align: center; float: left}
+
+
+.reservado { color:#d2d2d2;  border: solid 1px #d2d2d2; cursor: default;}
+.livre {}
+.livre:hover {color: red; border: solid 1px red; }
+
+.texto_menor {font-size: 0.9em; height: 20px; padding-top: 2px; padding-bottom: 20px;}
+
+.titulo {font-size: 1.08em; height: 45px; font-weight: bold; border-bottom: solid 1px gray}
+
+.bts_avalia {float: left; margin-right: 40px}
+.bts_avalia2 {float: left; margin-right: 10px}
+
+.top_ajuste {padding-top: 5px}
+.top_ajuste_2 {padding-top: 0px}
+
+.pergunta_dados {display:block; float: left; width: 185px; font-size: 1em;}
+.pergunta_dados_2 {display:block; float: left; width: 230px; font-size: 1em;}
+
+.wrong { background-color: #f8d6d7; font-weight: bold; }
+#aviso_cpf {margin-left: 185px; margin-top: -5px; font-size: 12px; color: red;  font-weight: bold; }
+#aviso_inscri {margin-left: 185px; margin-top: -5px; font-size: 12px; color: red;  font-weight: bold; }
+#aviso_duplicado {margin-left: 185px; margin-top: -5px; font-size: 12px; color: red;  font-weight: bold; }
+
+.carro { width: 125px; height: auto; float: left; font-size: 1.08em; list-style-type: none; margin: 0 20px; padding: 0 }
+.item_carro { float: left; width: 125px; margin: 0; padding: 0; align-content: center }
+.link_carro { text-align: center; line-height: 20px; color: black; text-decoration: none; align-content: center;   }
+.titulo_carro { text-align: center; line-height: 20px; color: black; text-decoration: none; align-content: center;   }
+.borda_bt {    border: solid 1px gray; margin-bottom: 10px;}
+.borda_bt:hover {    border: solid 1px red; margin-bottom: 10px; color: red}
+
+#horarios1 { display: none; }
+#horarios2 { display: none; }
+#horarios3 { display: none; }
+#horarios4 { display: none; }
+#horarios5 { display: none; }
+#horarios6 { display: none; }
+#horarios7 { display: none; }
