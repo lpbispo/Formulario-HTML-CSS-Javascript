@@ -1,2 +1,2 @@
-# Formul-rio-HTML-CSS-Javascript
-Formulário de Inscrição
+# Formulario-HTML-CSS-Javascript
+## Exemplo de Formulário de Inscrição
